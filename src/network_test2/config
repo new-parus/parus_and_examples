@@ -1,0 +1,34 @@
+#
+# Alexey Salnikov
+#
+PARUS_VERSION=2.0.1
+INSTALL_DIR=$(HOME)/network_tests-$(PARUS_VERSION)
+MPI_HOME=
+MPI_cc=mpixlc_r
+MPI_CC=mpixlcxx_r
+MPI_CLINKER=$(MPI_cc)
+MPI_CCLINKER=$(MPI_CC)
+MPI_LIB_PATH= -L /gpfs/data/salnikov/bgsys/netcdf/lib -L /gpfs/data/salnikov/hdf5/lib/ -L /gpfs/data/salnikov/zlib/lib
+MPI_LIBS=  -lnetcdf -lhdf5_hl -lhdf5 -lz
+#MPI_cc_INCLUDE= -I /bgsys/drivers/ppcfloor/arch/include
+MPI_cc_INCLUDE= -I /bgsys/drivers/ppcfloor/arch/include -I /gpfs/data/salnikov/bgsys/netcdf/include
+MPI_CC_INCLUDE=$(MPI_cc_INCLUDE)
+MPI_cc_FLAGS= -g -O 
+MPI_CC_FLAGS= -g -O
+MPI_CLINKER_FLAGS=
+MPI_CCLINKER_FLAGS=
+#NETCDF_INCLUDE= -I /gpfs/data/salnikov/bgsys/netcdf/include
+NETCDF_INCLUDE=
+CC=gcc
+CCC=g++
+CC_FLAGS= -g -O
+CCC_FLAGS= -g -O
+CC_INCLUDE= 
+CCC_INCLUDE= $(CC_INCLUDE)
+CLINKER=$(MPI_cc)
+CCLINKER=$(MPI_CC)
+CLINKER_FLAGS=
+CCLINKER_FLAGS=
+LIB_PATH=
+LIBS=
+
