@@ -24,7 +24,7 @@ EXECS = graph2c++ graph_touch network_test2 proc_test graph2sch parser
 
 all: core $(EXECS) 
 
-install: prepare_install $(INSTALL_DIR)/config install_core install_examples install_doc
+install: parus_config.h  prepare_install $(INSTALL_DIR)/config install_core install_examples install_doc
 	$(MAKE) install -C ./src/graph2c++
 	$(MAKE) install -C ./src/graph_touch
 	$(MAKE) install -C ./src/network_test2

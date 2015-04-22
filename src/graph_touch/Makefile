@@ -46,7 +46,7 @@ all: $(EXECS)
 graph_touch: $(FILES)
 	$(CCLINKER) $(CCLINKER_FLAGS) $(LIB_PATH) $(LIBS) -o graph_touch $(FILES) 
 
-install:
+install: graph_touch
 	cp -rf graph_touch $(INSTALL_DIR)/bin
 
 clean:

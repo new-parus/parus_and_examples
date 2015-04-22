@@ -72,9 +72,9 @@ clean:
 	rm -f ./parus_config.h
 	$(MAKE) clean -C ./src/network_test
 	$(MAKE) clean -C ./src/core
-	$(MAKE) clean -C ./src/network_viewer_qt_v2
-	$(MAKE) clean -C ./src/java
-	$(MAKE) clean -C ./src/clustering
+	#$(MAKE) clean -C ./src/network_viewer_qt_v2
+	#$(MAKE) clean -C ./src/java
+	#$(MAKE) clean -C ./src/clustering
 
 
 prepare_install:
