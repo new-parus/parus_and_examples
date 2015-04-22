@@ -1,7 +1,7 @@
 #
 # Alexey Salnikov
 #
-PARUS_VERSION=1.2.9_e
+PARUS_VERSION=1.3.0
 INSTALL_DIR=$(HOME)/parus-$(PARUS_VERSION)
 MPI_HOME=
 MPI_cc=mpicc
