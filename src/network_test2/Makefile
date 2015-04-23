@@ -17,21 +17,21 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-include ./config
+include ../../config
 SHELL=/bin/bash
 GOALS = network_test #clustering
 #INSTALL_DIR = .
 
 all: core $(GOALS) 
 
-install: core $(GOALS) prepare_install $(INSTALL_DIR)/config install_doc parus_config.h
+install: core $(GOALS)
 	$(MAKE) install -C ./src/network_test
 	$(MAKE) install -C ./src/core
 #	$(MAKE) install -C ./src/network_viewer_qt_v2
 #	$(MAKE) install -C ./src/java
 #	$(MAKE) install -C ./src/clustering
 	echo $(PARUS_VERSION) > $(INSTALL_DIR)/version
-	cp ./parus_config.h $(INSTALL_DIR)/include/parus_config.h
+#	cp ./parus_config.h $(INSTALL_DIR)/include/parus_config.h
 
 
 
@@ -49,7 +49,7 @@ force_uninstall:
 install_doc:
 	cp -rf ./doc/* $(INSTALL_DIR)/doc
 
-core: parus_config.h
+core: #parus_config.h
 	$(MAKE) -C ./src/core
 
 install_core: 

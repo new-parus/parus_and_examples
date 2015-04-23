@@ -48,7 +48,7 @@
 
 #include "my_time.h"
 #include "my_malloc.h"
-#include "parus_config.h"
+#include "../../../../parus_config.h"
 
 #include "string_id_converters.h"
 #include "data_write_operations.h"

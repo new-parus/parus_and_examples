@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-include ../../config
+include ../../../../config
 
 
 #FILES= demon.o edge_memory.o edge_data.o graph.o\

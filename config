@@ -2,7 +2,7 @@
 # Alexey Salnikov
 #
 PARUS_VERSION=1.3.0
-INSTALL_DIR=$(HOME)/parus-$(PARUS_VERSION)
+INSTALL_DIR=$(HOME)/_scratch/parus-$(PARUS_VERSION)
 MPI_HOME=
 MPI_cc=mpicc
 #
@@ -19,7 +19,7 @@ MPI_cc_INCLUDE=  -I $(MPI_HOME)/include -I /mnt/data/users/dm2/vol1/salnikov/net
 MPI_CC_INCLUDE=$(MPI_cc_INCLUDE)
 MPI_cc_FLAGS= -g -O 
 MPI_CC_FLAGS= -g -O
-MPI_CLINKER_FLAGS= L /mnt/data/users/dm2/vol1/salnikov/netcdf/lib
+MPI_CLINKER_FLAGS= -L /mnt/data/users/dm2/vol1/salnikov/netcdf/lib
 MPI_CCLINKER_FLAGS=
 NETCDF_INCLUDE= -I /mnt/data/users/dm2/vol1/salnikov/netcdf/include
 CC=gcc

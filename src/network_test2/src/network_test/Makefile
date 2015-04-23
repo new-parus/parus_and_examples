@@ -23,7 +23,7 @@
 # This file makes the nework_test of the parus system
 #
 
-include ../../config
+include ../../../../config
 
 FILES_COMMON=\
 	tests_common.o

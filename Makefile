@@ -133,6 +133,7 @@ parus_config.h:
 	echo "#define __PARUS_CONFIG_H__"			>> parus_config.h
 	echo "	#define  PARUS_VERSION \"$(PARUS_VERSION)\""	>> parus_config.h
 	echo "	#define  PARUS_INSTALL_DIR \"$(INSTALL_DIR)\""	>> parus_config.h
+	echo "  #define  PARUS_DATA_DIR \"$(INSTALL_DIR)/var/spool/network_tests2\"" >> parus_config.h
 	echo "#endif /* __PARUS_CONFIG_H__ */" 			>> parus_config.h
 
 
