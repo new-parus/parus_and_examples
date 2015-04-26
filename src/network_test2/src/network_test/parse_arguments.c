@@ -106,20 +106,22 @@ int print_network_test_help_message(void)
     return 0;
 }
 
+
+
 int parse_network_test_arguments(int argc,char **argv,struct network_test_parameters_struct *parameters)
 {
 	int arg_val;
 
 	parameters->num_procs            =  0; /* Special for program break on any error */
 	parameters->test_type            =  ONE_TO_ONE_TEST_TYPE;
-    parameters->begin_message_length =  MESSAGE_BEGIN_LENGTH;
-    parameters->end_message_length   =  MESSAGE_END_LENGTH;
-    parameters->step_length          =  MESSAGE_STEP;
-    parameters->num_repeats          =  NUM_REPEATS;
-    parameters->noise_message_length  =  NOISE_MESSAGE_LENGTH;
-    parameters->num_noise_messages   =  NOISE_MESSAGE_NUM;
-    parameters->num_noise_procs      =  NUM_NOISE_PROCS;
-    parameters->file_name_prefix     =  default_file_name_prefix;
+  parameters->begin_message_length =  MESSAGE_BEGIN_LENGTH;
+  parameters->end_message_length   =  MESSAGE_END_LENGTH;
+  parameters->step_length          =  MESSAGE_STEP;
+  parameters->num_repeats          =  NUM_REPEATS;
+  parameters->noise_message_length  =  NOISE_MESSAGE_LENGTH;
+  parameters->num_noise_messages   =  NOISE_MESSAGE_NUM;
+  parameters->num_noise_procs      =  NUM_NOISE_PROCS;
+  parameters->file_name_prefix     =  default_file_name_prefix;
 
 #ifdef _GNU_SOURCE
 

@@ -114,7 +114,11 @@ int main(int argc,char **argv)
 	};               
 	
 #endif
- 
+ 	MPI_Datatype struct_types[4]= {MPI_DOUBLE,MPI_DOUBLE,MPI_DOUBLE,MPI_DOUBLE};
+    MPI_Datatype MPI_My_time_struct;
+    int blocklength[4]= {1,1,1,1/*,1*/};
+    MPI_Aint displace[4],base;
+ 	
  	MPI_Init(&argc,&argv);
 	MPI_Comm_size(MPI_COMM_WORLD,&px_mpi_comm_size);
 	MPI_Comm_rank(MPI_COMM_WORLD,&px_mpi_comm_rank);

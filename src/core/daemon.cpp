@@ -190,7 +190,7 @@ int px_daemon
 	}
 
  
-	flag=mtr.fread(mtr_name);
+	flag=mtr.make_file(mtr_name);
 	if(flag)
 	{
 		if(flag==-2)
@@ -211,6 +211,7 @@ int px_daemon
 			return -1;
 		}
 	}
+
 
 	flag=v.fread(v_name);
 	if(flag==-1)

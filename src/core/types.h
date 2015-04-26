@@ -27,4 +27,18 @@
 //typedef int long_long_int;
 #define long_long_int int 
 
+struct network_test_parameters_struct
+{
+	int  num_procs;
+	int  test_type;
+	int  begin_message_length;
+	int  end_message_length;
+	int  step_length;
+	int  num_repeats;
+	int  noise_message_length;
+	int  num_noise_messages;
+	int  num_noise_procs;
+	const char *file_name_prefix;
+};
+
 #endif /* __MY_TYPES_H_ */

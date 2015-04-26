@@ -23,6 +23,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
+#include <netcdfcpp.h>
 
 #include "my_malloc.h"
 
@@ -123,4 +124,15 @@ int Matrix::mtr_create(int x, int y)
  return 0;
 }
 /****************************************************************************/
+
+/****************************************************************************/
+/*
+int Matrix::write_netcdf(NcVar* data)
+{
+  //float * temp= new float [sizex*sizey];
+  //for(int i=0; i<sizex*sizey;i++) temp[i]=(float)body[i];
+  data->put(body,1,sizex,sizey);
+  return 0;
+}
+*/
 

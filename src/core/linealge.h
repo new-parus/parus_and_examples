@@ -65,6 +65,7 @@ class Matrix
   };
   int fread(FILE *f,int x,int y);
   int mtr_create(int x, int y);
+  //int write_netcdf(NcVar* data);
   INLINE void fill_element(int x,int y,Element elm)
   {
    *(body+x*sizey+y)=elm;

@@ -47,7 +47,7 @@ protected:
     int num_messages; // Now it contains number of actually read matrices
 
     /* Test parameters */
-    char test_type[256]; // Truncated if too long
+    char test_type_name[256]; // Truncated if too long
     char data_type[256]; // Truncated if too long
 	int begin_message_length;
     int end_message_length;
@@ -59,13 +59,52 @@ protected:
     char** host_names; // For each processor, truncated to 255 if too long
     int* host_ranks; // Ranks for each processor
 
-    int *messages_length;
-    Matrix *links;
+    /*
+     * The structure with network_test parameters.
+     */
+    struct network_test_parameters_struct test_parameters;
+
+    /*
+     * NetCDF file_id for:
+     *  average
+     *  median
+     *  diviation
+     *  minimal values
+     *
+     */
+    int netcdf_file_av;
+    int netcdf_file_me;
+    int netcdf_file_di;
+    int netcdf_file_mi;
+
+    /*
+     * NetCDF var_id for:
+     *  average
+     *  median
+     *  diviation
+     *  minimal values
+     *
+     */
+    int netcdf_var_av;
+    int netcdf_var_me;
+    int netcdf_var_di;
+    int netcdf_var_mi;
+
+    /*
+     * Variables to concentrate test results
+     *
+     * This is not C++ class but very like.
+     */
+    Easy_matrix mtr_av;
+    Easy_matrix mtr_me;
+    Easy_matrix mtr_di;
+    Easy_matrix mtr_mi;
 public:
     Network_speed();
     ~Network_speed();
     int fread(char *file_name);
-
+    int make_file(char *file_name);
+    
     INLINE bool is_no_file( )
     {
         return state == info_state_no_file;
