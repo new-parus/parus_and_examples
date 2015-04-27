@@ -19,7 +19,7 @@
 
 include ./config
 SHELL=/bin/bash
-EXECS = graph2c++ graph_touch network_test2 proc_test graph2sch parser
+EXECS = graph2c++ graph_touch network_test2 proc_test parser #graph2sch
 #INSTALL_DIR = .
 
 all: parus_config.h network_test2 core $(EXECS) 
@@ -29,7 +29,7 @@ install: parus_config.h  prepare_install $(INSTALL_DIR)/config install_core inst
 	$(MAKE) install -C ./src/graph_touch
 	$(MAKE) install -C ./src/network_test2
 	$(MAKE) install -C ./src/proc_test
-	$(MAKE) install -C ./src/scheduler
+#	$(MAKE) install -C ./src/scheduler
 	$(MAKE) install -C ./src/parser
 #	$(MAKE) install -C ./src/java
 #	$(MAKE) install -C ./src/java/viewer_new
