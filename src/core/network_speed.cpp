@@ -26,7 +26,6 @@
 #include <math.h>
 #include <mpi.h>
 
-#include "types.h"
 #include "data_write_operations.h"
 
 
@@ -321,8 +320,9 @@ int Network_speed::make_file(char *file_name)
     Test_time_result_type *times=NULL;
     int tmp_mes_size;
     int step_num=0;
-    
+
     MPI_Datatype MPI_My_time_struct;
+    MPI_Datatype struct_types[4]= {MPI_DOUBLE,MPI_DOUBLE,MPI_DOUBLE,MPI_DOUBLE};
     int blocklength[4]= {1,1,1,1/*,1*/};
     MPI_Aint displace[4],base;
 
