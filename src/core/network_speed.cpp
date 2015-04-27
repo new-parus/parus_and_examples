@@ -316,14 +316,13 @@ Network_speed::~Network_speed()
 /****************************************************************************/
 int Network_speed::make_file(char *file_name)
 {
-    int comm_size;
-    int comm_rank;
     MPI_Status status;
     int flag;
     Test_time_result_type *times=NULL;
     int tmp_mes_size;
     int step_num=0;
-
+    
+    MPI_Datatype MPI_My_time_struct;
     int blocklength[4]= {1,1,1,1/*,1*/};
     MPI_Aint displace[4],base;
 

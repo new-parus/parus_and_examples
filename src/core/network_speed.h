@@ -83,6 +83,9 @@ protected:
         info_state_all_done
     } state;
 
+    int comm_size;
+    int comm_rank;
+
     int num_processors;
     int num_messages; // Now it contains number of actually read matrices
 
