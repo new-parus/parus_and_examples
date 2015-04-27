@@ -29,7 +29,6 @@
 #include "data_write_operations.h"
 #include "network_test2.h"
 #include "types.h"
-#include "easy_matrices.h"
 #include "tests_common.h"
 #include "parse_arguments.h"
 

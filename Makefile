@@ -22,7 +22,7 @@ SHELL=/bin/bash
 EXECS = graph2c++ graph_touch network_test2 proc_test graph2sch parser
 #INSTALL_DIR = .
 
-all: core $(EXECS) 
+all: parus_config.h network_test2 core $(EXECS) 
 
 install: parus_config.h  prepare_install $(INSTALL_DIR)/config install_core install_examples install_doc
 	$(MAKE) install -C ./src/graph2c++
@@ -67,7 +67,7 @@ graph2c++:
 graph_touch:
 	$(MAKE) -C ./src/graph_touch
 
-network_test:
+network_test2:
 	$(MAKE) -C ./src/network_test2
 
 proc_test:

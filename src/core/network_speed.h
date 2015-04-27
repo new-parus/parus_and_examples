@@ -25,6 +25,8 @@
 #include "my_time.h"
 #include <string.h>
 
+#include "easy_matrices.h"
+
 #ifndef INLINE
     #define INLINE inline
 #endif

@@ -62,7 +62,7 @@ clean:
 	rm -f *.o libparus.a libparus_common.a
 
 .c.o:
-	 $(MPI_cc) $(MPI_cc_FLAGS) $(MPI_cc_INCLUDE) -I ../.. -L /mnt/data/users/dm2/vol1/salnikov/netcdf/lib -c $*.c -o $*.o  -lnetcdf
+	 $(MPI_cc) $(MPI_cc_FLAGS) $(MPI_cc_INCLUDE) -I ../.. -I -I ../network_test2/src/core -L /mnt/data/users/dm2/vol1/salnikov/netcdf/lib -c $*.c -o $*.o  -lnetcdf
 
    
 .cpp.o:
