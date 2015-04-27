@@ -63,7 +63,7 @@ protected:
     int num_messages; // Now it contains number of actually read matrices
 
     /* Test parameters */
-    char test_type_name[256]; // Truncated if too long
+    char test_type_name[100]; // Truncated if too long
     char data_type[256]; // Truncated if too long
 	int begin_message_length;
     int end_message_length;
@@ -73,6 +73,7 @@ protected:
     int noise_processors;
     int num_repeats;
     char** host_names; // For each processor, truncated to 255 if too long
+    char host_name[256];
     int* host_ranks; // Ranks for each processor
 
     /*
@@ -130,7 +131,7 @@ protected:
 public:
     Network_speed();
     ~Network_speed();
-    int fread(char *file_name);
+    //int fread(char *file_name);
     int make_file(char *file_name);
     
     INLINE bool is_no_file( )

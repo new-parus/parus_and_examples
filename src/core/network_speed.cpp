@@ -28,6 +28,7 @@
 
 #include "types.h"
 #include "tests_common.h"
+#include "data_write_operations.h"
 
 
 #define READ_STR_LENGTH 300
@@ -91,14 +92,10 @@ Network_speed::~Network_speed()
     num_processors=0;
     num_messages=0;
 
-    if(messages_length!=NULL)
-        free(messages_length);
-    if(links!=NULL)
-        delete [] links;
     return;
 }
 /****************************************************************************/
-int Network_speed::fread(char *file_name)
+/*int Network_speed::fread(char *file_name)
 {
     FILE *f;
     int flag;
@@ -128,7 +125,7 @@ int Network_speed::fread(char *file_name)
     // Update state
     state = info_state_processors;
 
-    /* After revision 61 file header contains only processor number
+    // /* After revision 61 file header contains only processor number
      * 
      * flag=get_word(f,str);
      * if(flag==-1) return -1;
@@ -151,9 +148,10 @@ int Network_speed::fread(char *file_name)
      * if(flag==-1) return -1;
      * num_messages=atoi(str);
      *
-     */
+     // */
 
-    /* Test parameters */
+    // /* Test parameters */
+     /*
 #define GETWORD flag = get_word( f, str , READ_STR_LENGTH ); if ( flag ) return -1;
 #define FORMATCHECK(x) if ( strcmp( str, x ) ) { printf( "Bad format file %s\n", file_name ); return -1; }
 
@@ -206,11 +204,11 @@ int Network_speed::fread(char *file_name)
     GETWORD FORMATCHECK( "repeates" )
     GETWORD num_repeats = atoi( str );
     
-    /*
+    ///*
      * Commented by Alexey Salnikov.
      *
      * I think commented code fragment is abuse for file format.
-     */
+    // */
     
     /*
     GETWORD FORMATCHECK( "result" )
@@ -218,14 +216,14 @@ int Network_speed::fread(char *file_name)
     flag = read_string( f, str );
     if ( flag == -1 ) return -1;
     */
-
+/*
     GETWORD FORMATCHECK( "hosts:" )
     
     // Update state
     state = info_state_test_parameters;
 
     /* Reading host names, each processor - one host name */
-    host_names = (char**)malloc(sizeof(char*)*num_processors);
+    /*host_names = (char**)malloc(sizeof(char*)*num_processors);
     host_ranks = (int*)malloc(sizeof(int)*num_processors);
     for ( int i = 0; i < num_processors; i++ )
         host_names[i] = (char*)malloc( 256 * sizeof(char));
@@ -246,7 +244,7 @@ int Network_speed::fread(char *file_name)
 	GETWORD FORMATCHECK( "rank" )
 	GETWORD host_ranks[i] = atoi( str );
 	*/
-    }
+    /*}
 
 #undef GETWORD
 #undef FORMATCHECK
@@ -314,16 +312,28 @@ int Network_speed::fread(char *file_name)
     fclose(f);
 
     return 0;
-}
+}*/
 /****************************************************************************/
 /****************************************************************************/
 int Network_speed::make_file(char *file_name)
 {
+    int comm_size;
+    int comm_rank;
+    MPI_Status status;
+    int flag;
+    Test_time_result_type *times=NULL;
+    int tmp_mes_size;
+    int step_num=0;
+
+    int blocklength[4]= {1,1,1,1/*,1*/};
+    MPI_Aint displace[4],base;
+
+    MPI_Comm_size(MPI_COMM_WORLD,&comm_size);
+    MPI_Comm_rank(MPI_COMM_WORLD,&comm_rank);
     if(comm_rank == 0)
     {
         if ( comm_size == 1 )
         {
-            error_flag = 1;
             printf( "\n\nYou tries to run this programm for one MPI thread!\n\n" );
         }
 
@@ -335,7 +345,7 @@ int Network_speed::make_file(char *file_name)
             return -1;
         }
 
-        for ( i = 0; i < comm_size; i++ )
+        for (int i = 0; i < comm_size; i++ )
         {
             host_names[i] = (char*)malloc(256*sizeof(char));
             if(host_names[i]==NULL)
@@ -353,7 +363,7 @@ int Network_speed::make_file(char *file_name)
 
     if ( comm_rank == 0 )
     {
-        for ( i = 1; i < comm_size; i++ )
+        for (int i = 1; i < comm_size; i++ )
             MPI_Recv( host_names[i], 256, MPI_CHAR, i, 200, MPI_COMM_WORLD, &status );
         strcpy(host_names[0],host_name);
     }
@@ -444,7 +454,7 @@ int Network_speed::make_file(char *file_name)
          *
          */
          //???
-        get_test_type_name(test_parameters.test_type,test_type_name);
+        //!get_test_type_name(test_parameters.test_type,test_type_name);
     } /* End preparation (only in MPI process with rank 0) */
 
     /*
@@ -507,14 +517,14 @@ int Network_speed::make_file(char *file_name)
 
         if(comm_rank==0)
         {
-            for(j=0; j<comm_size; j++)
+            for(int j=0; j<comm_size; j++)
             {
                 MATRIX_FILL_ELEMENT(mtr_av,0,j,times[j].average);
                 MATRIX_FILL_ELEMENT(mtr_me,0,j,times[j].median);
                 MATRIX_FILL_ELEMENT(mtr_di,0,j,times[j].deviation);
                 MATRIX_FILL_ELEMENT(mtr_mi,0,j,times[j].min);
             }
-            for(i=1; i<comm_size; i++)
+            for(int i=1; i<comm_size; i++)
             {
 
                 MPI_Recv(times,comm_size,MPI_My_time_struct,i,100,MPI_COMM_WORLD,&status);
