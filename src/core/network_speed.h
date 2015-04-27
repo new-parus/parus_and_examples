@@ -25,7 +25,7 @@
 #include "my_time.h"
 #include <string.h>
 
-
+#include "tests_common.h"
 #include "easy_matrices.h"
 #include "my_malloc.h"
 #include "../../parus_config.h"

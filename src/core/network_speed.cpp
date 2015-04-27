@@ -27,7 +27,6 @@
 #include <mpi.h>
 
 #include "types.h"
-#include "tests_common.h"
 #include "data_write_operations.h"
 
 
