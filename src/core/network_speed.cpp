@@ -93,9 +93,9 @@ Network_speed::~Network_speed()
     return;
 }
 /****************************************************************************/
-/*int Network_speed::fread(char *file_name)
+int Network_speed::fread(char *file_name)
 {
-    FILE *f;
+    /*FILE *f;
     int flag;
     char str[READ_STR_LENGTH];
     int i;
@@ -308,9 +308,9 @@ Network_speed::~Network_speed()
 
     // Close file!
     fclose(f);
-
+    */
     return 0;
-}*/
+}
 /****************************************************************************/
 /****************************************************************************/
 int Network_speed::make_file(char *file_name)

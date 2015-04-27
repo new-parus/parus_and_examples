@@ -159,7 +159,7 @@ protected:
 public:
     Network_speed();
     ~Network_speed();
-    //int fread(char *file_name);
+    int fread(char *file_name);
     int make_file(char *file_name);
     
     INLINE bool is_no_file( )
