@@ -25,6 +25,21 @@
 #include "my_time.h"
 #include <string.h>
 
+#include "my_time.h"
+#include "my_malloc.h"
+#include "../../parus_config.h"
+
+
+#define MESSAGE_BEGIN_LENGTH 0
+#define MESSAGE_END_LENGTH 10000
+#define NUM_REPEATS 100
+#define MESSAGE_STEP 100
+#define NOISE_MESSAGE_LENGTH 0
+#define NOISE_MESSAGE_NUM 1
+#define NUM_NOISE_PROCS 0
+
+
+
 #ifndef INLINE
     #define INLINE inline
 #endif
@@ -63,6 +78,18 @@ protected:
      * The structure with network_test parameters.
      */
     struct network_test_parameters_struct test_parameters;
+    /*{
+        int  num_procs;
+        int  test_type;
+        int  begin_message_length;
+        int  end_message_length;
+        int  step_length;
+        int  num_repeats;
+        int  noise_message_length;
+        int  num_noise_messages;
+        int  num_noise_procs;
+        const char *file_name_prefix;
+    };/*
 
     /*
      * NetCDF file_id for:
@@ -137,7 +164,7 @@ public:
 
     INLINE void get_test_type( char* str )
     {
-        strcpy( str, test_type );
+        strcpy( str, test_type_name );
     }
 
 	INLINE void get_data_type( char* str )
@@ -185,10 +212,10 @@ public:
         return num_messages;
     }
     
-    INLINE int* get_messages_length()
+    /*INLINE int* get_messages_length()
     {
         return messages_length;
-    }
+    }*/
 
     INLINE const char* get_host_name(int i)
     {
