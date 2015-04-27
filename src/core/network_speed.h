@@ -25,6 +25,7 @@
 #include "my_time.h"
 #include <string.h>
 
+#include "string_id_converters.h"
 #include "tests_common.h"
 #include "easy_matrices.h"
 #include "my_malloc.h"

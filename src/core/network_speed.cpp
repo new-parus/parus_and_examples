@@ -550,7 +550,7 @@ int Network_speed::make_file(char *file_name)
                 printf("Can't write median matrix to file.\n");
                 MPI_Abort(MPI_COMM_WORLD,-1);
                 return 1;
-     ONE_TO_ONE_TEST_TYPE       }
+            }
 
             if(netcdf_write_matrix(netcdf_file_di,netcdf_var_di,step_num,mtr_di.sizex,mtr_di.sizey,mtr_di.body))
             {
@@ -614,8 +614,9 @@ int Network_speed::close_and_free()
     free(mtr_mi.body);
 
     return 0;
-}   
-double Network_speed::translate_time(int from,int to,int length)
+}
+
+double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCTION
 {
 	int i;
 	
@@ -629,15 +630,15 @@ double Network_speed::translate_time(int from,int to,int length)
 	
 	for(i=0;i<num_messages;i++)
 	{
-		if(length <= messages_length[i]) break;
+		//if(length <= messages_length[i]) break;
 	}
 	
 	if(i==num_messages)
 	{
-		return links[num_messages-1].element(from,to);
+		//return links[num_messages-1].element(from,to);
 	}
 	
-	return links[i].element(from,to);
+	return 0.0;//links[i].element(from,to);
 }
 /****************************************************************************/
 
