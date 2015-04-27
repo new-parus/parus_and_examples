@@ -43,6 +43,8 @@
     #define INLINE inline
 #endif
 
+const char *default_file_name_prefix = "network";
+
 class Network_speed
 {
 protected:
@@ -227,6 +229,7 @@ public:
     }
 
     px_my_time_type translate_time(int from,int to,int length);
+    int close_and_free();
 };
 
 #endif /* __NETWORK_SPEED_H_ */

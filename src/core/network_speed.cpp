@@ -41,7 +41,7 @@ Network_speed::Network_speed()
     num_messages=0;
 
     /* Test parameters */
-    test_type[0] = 0;
+    test_type_name[0] = 0;
 	data_type[0] = 0;
     begin_message_length = 0;
     end_message_length = 0;
@@ -53,47 +53,24 @@ Network_speed::Network_speed()
     host_names = 0;
     host_ranks = 0;
 
-    test_parameters->num_procs            =  0; /* Special for program break on any error */
-    test_parameters->test_type            =  ONE_TO_ONE_TEST_TYPE;
-    test_parameters->begin_message_length =  MESSAGE_BEGIN_LENGTH;
-    test_parameters->end_message_length   =  MESSAGE_END_LENGTH;
-    test_parameters->step_length          =  MESSAGE_STEP;
-    test_parameters->num_repeats          =  NUM_REPEATS;
-    test_parameters->noise_message_length =  NOISE_MESSAGE_LENGTH;
-    test_parameters->num_noise_messages   =  NOISE_MESSAGE_NUM;
-    test_parameters->num_noise_procs      =  NUM_NOISE_PROCS;
-    test_parameters->file_name_prefix     =  default_file_name_prefix;
+    test_parameters.num_procs            =  0; /* Special for program break on any error */
+    test_parameters.test_type            =  ONE_TO_ONE_TEST_TYPE;
+    test_parameters.begin_message_length =  MESSAGE_BEGIN_LENGTH;
+    test_parameters.end_message_length   =  MESSAGE_END_LENGTH;
+    test_parameters.step_length          =  MESSAGE_STEP;
+    test_parameters.num_repeats          =  NUM_REPEATS;
+    test_parameters.noise_message_length =  NOISE_MESSAGE_LENGTH;
+    test_parameters.num_noise_messages   =  NOISE_MESSAGE_NUM;
+    test_parameters.num_noise_procs      =  NUM_NOISE_PROCS;
+    test_parameters.file_name_prefix     =  default_file_name_prefix;
 
-    messages_length=NULL;
-    links=NULL;
+    //messages_length=NULL;
+    //links=NULL;
     return;
 }
 /***********************************************************************/
-            
 Network_speed::~Network_speed()
 {
-    if(comm_rank==0)
-    {
-
-        netcdf_close_file(netcdf_file_av);
-        netcdf_close_file(netcdf_file_me);
-        netcdf_close_file(netcdf_file_di);
-        netcdf_close_file(netcdf_file_mi);
-
-        for(i=0; i<comm_size; i++)
-        {
-            free(host_names[i]);
-        }
-        free(host_names);
-
-        free(mtr_av.body);
-        free(mtr_me.body);
-        free(mtr_di.body);
-        free(mtr_mi.body);
-
-        printf("\nTest is done\n");
-    }
-
 	if ( host_names != NULL )
     {
         for ( int i = 0; i < num_processors; i++ )
@@ -608,6 +585,27 @@ int Network_speed::make_file(char *file_name)
     free(times);
 }
 //***************************************************
+int Network_speed::close_and_free()
+{
+    //if(comm_rank==0)
+    netcdf_close_file(netcdf_file_av);
+    netcdf_close_file(netcdf_file_me);
+    netcdf_close_file(netcdf_file_di);
+    netcdf_close_file(netcdf_file_mi);
+
+    for(int i=0; i<comm_size; i++)
+    {
+        free(host_names[i]);
+    }
+    free(host_names);
+
+    free(mtr_av.body);
+    free(mtr_me.body);
+    free(mtr_di.body);
+    free(mtr_mi.body);
+
+    return 0;
+}   
 double Network_speed::translate_time(int from,int to,int length)
 {
 	int i;
