@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <mpi.h>
 
 #include "string_id_converters.h"
 #include "data_write_operations.h"
