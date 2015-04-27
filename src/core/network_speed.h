@@ -76,8 +76,8 @@ protected:
     /*
      * The structure with network_test parameters.
      */
-    struct network_test_parameters_struct test_parameters;
-    /*{
+    struct network_test_parameters_struct
+    {
         int  num_procs;
         int  test_type;
         int  begin_message_length;
@@ -88,7 +88,7 @@ protected:
         int  num_noise_messages;
         int  num_noise_procs;
         const char *file_name_prefix;
-    };/*
+    } test_parameters;
 
     /*
      * NetCDF file_id for:
