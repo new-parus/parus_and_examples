@@ -528,7 +528,7 @@ int Network_speed::make_file(char *file_name)
             {
 
                 MPI_Recv(times,comm_size,MPI_My_time_struct,i,100,MPI_COMM_WORLD,&status);
-                for(j=0; j<comm_size; j++)
+                for(int j=0; j<comm_size; j++)
                 {
                     MATRIX_FILL_ELEMENT(mtr_av,i,j,times[j].average);
                     MATRIX_FILL_ELEMENT(mtr_me,i,j,times[j].median);
@@ -551,7 +551,7 @@ int Network_speed::make_file(char *file_name)
                 printf("Can't write median matrix to file.\n");
                 MPI_Abort(MPI_COMM_WORLD,-1);
                 return 1;
-            }
+     ONE_TO_ONE_TEST_TYPE       }
 
             if(netcdf_write_matrix(netcdf_file_di,netcdf_var_di,step_num,mtr_di.sizex,mtr_di.sizey,mtr_di.body))
             {
