@@ -25,9 +25,8 @@
 #include "my_time.h"
 #include <string.h>
 
-<<<<<<< HEAD
+
 #include "easy_matrices.h"
-=======
 #include "my_time.h"
 #include "my_malloc.h"
 #include "../../parus_config.h"
@@ -40,9 +39,6 @@
 #define NOISE_MESSAGE_LENGTH 0
 #define NOISE_MESSAGE_NUM 1
 #define NUM_NOISE_PROCS 0
-
-
->>>>>>> 2a2851e536bea9929825f8ddb94052c98efaccfe
 
 #ifndef INLINE
     #define INLINE inline
