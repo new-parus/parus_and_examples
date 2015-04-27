@@ -25,14 +25,9 @@
 #include <string.h>
 #include <math.h>
 
-#include "string_id_converters.h"
-#include "data_write_operations.h"
-#include "network_test2.h"
 #include "types.h"
 #include "tests_common.h"
-#include "parse_arguments.h"
 
-#include "my_malloc.h"
 
 #define READ_STR_LENGTH 300
 
