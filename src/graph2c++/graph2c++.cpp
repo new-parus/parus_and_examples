@@ -220,7 +220,7 @@ int main(int argc,char **argv)
  fprintf(f,"\ndefault: $(EXECS)\n\n\n");
 
  fprintf(f,"%s: %s.o\n",program_name,program_name);  
- fprintf(f,"\t$(MPI_CCLINKER) $(MPI_CCLINKER_FLAGS) $(MPI_LIB_PATH) -L $(INSTALL_DIR)/lib %s.o -o %s $(MPI_LIBS) -lm -lparus\n",
+ fprintf(f,"\t$(MPI_CCLINKER) $(MPI_CCLINKER_FLAGS) $(MPI_LIB_PATH) -L $(INSTALL_DIR)/lib %s.o -o %s -lm -lparus -lnetcdf $(MPI_LIBS) \n",
                  program_name,program_name);
 
  fprintf(f,"\nclean:\n");
