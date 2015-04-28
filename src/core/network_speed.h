@@ -68,7 +68,7 @@ extern int one_to_one(Test_time_result_type *times,int mes_length,int num_repeat
     #define INLINE inline
 #endif
 
-const char *default_file_name_prefix = "network";
+//const char *default_file_name_prefix = "network";
 
 class Network_speed
 {
