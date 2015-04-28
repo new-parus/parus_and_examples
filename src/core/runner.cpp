@@ -624,7 +624,7 @@ int main(int argc,char **argv)
 		/*
 		 * Data for network test 
 		 */
-		 mtr_name = "file";
+		char* mtr_name = "file";
 		Network_speed mtr;
 		mtr.make_file(mtr_name);
 		
