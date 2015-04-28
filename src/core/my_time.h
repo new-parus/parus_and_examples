@@ -26,6 +26,15 @@
 
 typedef double px_my_time_type; 
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 extern px_my_time_type px_my_cpu_time(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __MY_TIME_H_ */

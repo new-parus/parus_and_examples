@@ -19,15 +19,14 @@
  * Alexey N. Salnikov (salnikov@cmc.msu.ru)
  *
  */
-
-#include "my_time.h"
-#include "my_malloc.h"
-#include "tests_common.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <mpi.h>
+
+#include "my_time.h"
+#include "my_malloc.h"
+#include "tests_common.h"
 
 extern int comm_rank;
 extern int comm_size;

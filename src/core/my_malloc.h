@@ -23,8 +23,17 @@
 
 #include <stdlib.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 extern void *__my_malloc(size_t size);
 extern void __my_free(void *pointer);
+
+#ifdef __cplusplus
+}
+#endif
 
 #define malloc __my_malloc
 #define free __my_free
