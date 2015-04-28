@@ -38,6 +38,7 @@
 #include "px_log_print.h"
 #include "my_time.h"
 #include "my_malloc.h"
+#include "network_speed.h"
 
 
 
@@ -619,6 +620,12 @@ int main(int argc,char **argv)
 			px_mpi_comm_rank,
 			px_mpi_comm_size
 		);
+
+		/*
+		 * Data for network test 
+		 */
+		Network_speed mtr;
+		mtr.make_file(mtr_name);
 		
 		px_message=PX_PROCESSOR_CLEAN;
 		

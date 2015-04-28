@@ -28,6 +28,8 @@
 
 #include "data_write_operations.h"
 
+ const char *default_file_name_prefix = "network";
+
 
 #define READ_STR_LENGTH 300
 
