@@ -28,8 +28,8 @@
 #include "my_malloc.h"
 #include "tests_common.h"
 
-extern int comm_rank;
-extern int comm_size;
+extern int px_mpi_comm_size;
+extern int px_mpi_comm_rank;
 
 int all_to_all(Test_time_result_type *times,int mes_length,int num_repeats);
 
@@ -49,14 +49,14 @@ int all_to_all(Test_time_result_type *times,int mes_length,int num_repeats)
     double sum;
 
 
-    tmp_results=(px_my_time_type**)malloc(comm_size*sizeof(px_my_time_type*));
+    tmp_results=(px_my_time_type**)malloc(px_mpi_comm_size*sizeof(px_my_time_type*));
     if(tmp_results==NULL)
     {
         free(times);
         return -1;
     }
 
-    send_request=(MPI_Request *)malloc(comm_size*sizeof(MPI_Request));
+    send_request=(MPI_Request *)malloc(px_mpi_comm_size*sizeof(MPI_Request));
     if(send_request == NULL)
     {
         free(times);
@@ -64,7 +64,7 @@ int all_to_all(Test_time_result_type *times,int mes_length,int num_repeats)
         return -1;
     }
 
-    recv_request=(MPI_Request *)malloc(comm_size*sizeof(MPI_Request));
+    recv_request=(MPI_Request *)malloc(px_mpi_comm_size*sizeof(MPI_Request));
     if(recv_request == NULL)
     {
         free(times);
@@ -72,7 +72,7 @@ int all_to_all(Test_time_result_type *times,int mes_length,int num_repeats)
         free(send_request);
         return -1;
     }
-    send_data=(char **)malloc(sizeof(char *)*comm_size);
+    send_data=(char **)malloc(sizeof(char *)*px_mpi_comm_size);
     if(send_data == NULL)
     {
         free(times);
@@ -81,7 +81,7 @@ int all_to_all(Test_time_result_type *times,int mes_length,int num_repeats)
         free(recv_request);
         return -1;
     }
-    recv_data=(char **)malloc(sizeof(char *)*comm_size);
+    recv_data=(char **)malloc(sizeof(char *)*px_mpi_comm_size);
     if(recv_data == NULL)
     {
         free(times);
@@ -93,7 +93,7 @@ int all_to_all(Test_time_result_type *times,int mes_length,int num_repeats)
     }
 
 
-    for(i=0; i<comm_size; i++)
+    for(i=0; i<px_mpi_comm_size; i++)
     {
         send_data[i]=NULL;
         recv_data[i]=NULL;
@@ -123,7 +123,7 @@ int all_to_all(Test_time_result_type *times,int mes_length,int num_repeats)
         free(times);
         free(send_request);
         free(recv_request);
-        for(i=0; i<comm_size; i++)
+        for(i=0; i<px_mpi_comm_size; i++)
         {
             if(send_data[i]!=NULL)   free(send_data[i]);
             if(recv_data[i]!=NULL)   free(recv_data[i]);
@@ -140,7 +140,7 @@ int all_to_all(Test_time_result_type *times,int mes_length,int num_repeats)
 
         time_beg=px_my_cpu_time();
 
-        for(j=0; j<comm_size; j++)
+        for(j=0; j<px_mpi_comm_size; j++)
         {
             MPI_Isend(send_data[j],
                       mes_length,
@@ -164,19 +164,19 @@ int all_to_all(Test_time_result_type *times,int mes_length,int num_repeats)
 
 
 
-        for(j=0; j<comm_size; j++)
+        for(j=0; j<px_mpi_comm_size; j++)
         {
-            MPI_Waitany(comm_size,recv_request,&finished,&status);
+            MPI_Waitany(px_mpi_comm_size,recv_request,&finished,&status);
             time_end=px_my_cpu_time();
             tmp_results[finished][i]=time_end-time_beg;
             /*
              printf("process %d from %d:\n  Finished recive message length=%d from %d throug the time %ld\n",
-             comm_rank,comm_size,mes_length,finished,times[finished]);
+             px_mpi_comm_rank,px_mpi_comm_size,mes_length,finished,times[finished]);
             */
         }
     }
 
-    for(i=0; i<comm_size; i++)
+    for(i=0; i<px_mpi_comm_size; i++)
     {
         sum=0;
         for(j=0; j<num_repeats; j++)
@@ -203,7 +203,7 @@ int all_to_all(Test_time_result_type *times,int mes_length,int num_repeats)
 
     free(send_request);
     free(recv_request);
-    for(i=0; i<comm_size; i++)
+    for(i=0; i<px_mpi_comm_size; i++)
     {
         if(send_data[i]!=NULL)  free(send_data[i]);
         if(recv_data[i]!=NULL)  free(recv_data[i]);
