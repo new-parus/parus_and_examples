@@ -24,7 +24,7 @@
 #define ERROR_FLAG   -1
 #define HELP_FLAG    2
 
-const char *default_file_name_prefix = "network";
+const char *network_test_default_file_name_prefix = "network";
 
 
 int print_network_test_help_message(void)
@@ -121,7 +121,7 @@ int parse_network_test_arguments(int argc,char **argv,struct network_test_parame
   parameters->noise_message_length  =  NOISE_MESSAGE_LENGTH;
   parameters->num_noise_messages   =  NOISE_MESSAGE_NUM;
   parameters->num_noise_procs      =  NUM_NOISE_PROCS;
-  parameters->file_name_prefix     =  default_file_name_prefix;
+  parameters->file_name_prefix     =  network_test_default_file_name_prefix;
 
 #ifdef _GNU_SOURCE
 

@@ -28,7 +28,7 @@
 
 #include "data_write_operations.h"
 
- const char *default_file_name_prefix = "network";
+ const char *parus_default_file_name_prefix = "network";
 
 
 #define READ_STR_LENGTH 300
@@ -63,7 +63,7 @@ Network_speed::Network_speed()
     test_parameters.noise_message_length =  NOISE_MESSAGE_LENGTH;
     test_parameters.num_noise_messages   =  NOISE_MESSAGE_NUM;
     test_parameters.num_noise_procs      =  NUM_NOISE_PROCS;
-    test_parameters.file_name_prefix     =  default_file_name_prefix;
+    test_parameters.file_name_prefix     =  parus_default_file_name_prefix;
 
     //messages_length=NULL;
     //links=NULL;
