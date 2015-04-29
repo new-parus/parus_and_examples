@@ -23,7 +23,8 @@ include ../../config
 FILES= daemon.o edge_memory.o edge_data.o graph.o\
        runner.o linealge.o simple_list.o px_log_print.o to_processor.o\
        procs_perfomance.o network_speed.o px_edges_list.o try_to_send.o str_operation.o\
-       my_time.o my_malloc.o px_const_utils.o
+       my_time.o my_malloc.o px_const_utils.o data_write_operations.o easy_matrices.o\
+       one_to_one2.o all_to_all2.o string_id_converters.o tests_common.o
 
 FILES_COMMON= simple_list.o linealge.o px_log_print.o\
               network_speed.o procs_perfomance.o my_time.o\
@@ -61,10 +62,10 @@ install: $(EXECS)
 clean:
 	rm -f *.o libparus.a libparus_common.a
 
-.c.o:
-	 $(MPI_cc) $(MPI_cc_FLAGS) $(MPI_cc_INCLUDE) -I ../.. -I ../network_test2/src/network_test2 -I ../network_test2/src/core -L /mnt/data/users/dm2/vol1/salnikov/netcdf/lib -c $*.c -o $*.o  -lnetcdf
+%.o : %.c
+	 $(MPI_cc) $(MPI_cc_FLAGS) $(MPI_cc_INCLUDE) -I ../.. -I ../network_test2/src/network_test2 -I ../network_test2/src/core -L /mnt/data/users/dm2/vol1/salnikov/netcdf/lib -c $^  
 
    
-.cpp.o:
-	 $(MPI_CC) $(MPI_CC_FLAGS) $(MPI_CC_INCLUDE) -I ../.. -I ../network_test2/src/network_test2 -I ../network_test2/src/core -L /mnt/data/users/dm2/vol1/salnikov/netcdf/lib -c $*.cpp -o $*.o -lnetcdf
+%.o : %.cpp
+	 $(MPI_CC) $(MPI_CC_FLAGS) $(MPI_CC_INCLUDE) -I ../.. -I ../network_test2/src/network_test2 -I ../network_test2/src/core -L /mnt/data/users/dm2/vol1/salnikov/netcdf/lib -c $^
 
