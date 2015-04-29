@@ -191,7 +191,7 @@ int px_daemon
 
  
 	flag=mtr.make_file(mtr_name);
-	if(flag)
+	/*if(flag)
 	{
 		if(flag==-2)
 		{
@@ -210,7 +210,7 @@ int px_daemon
 			px_log_printf(0,"px_daemon: error while reading communications throughput information from file %s\n",mtr_name);
 			return -1;
 		}
-	}
+	}*/
 
 
 	flag=v.fread(v_name);
