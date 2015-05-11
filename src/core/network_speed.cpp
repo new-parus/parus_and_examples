@@ -45,13 +45,6 @@ Network_speed::Network_speed()
     /* Test parameters */
     test_type_name[0] = 0;
 	data_type[0] = 0;
-    begin_message_length = 0;
-    end_message_length = 0;
-    step_length = 0;
-    noise_message_length = 0;
-    noise_message_num = 0;
-    noise_processors = 0;
-    num_repeats = 0;
     host_names = 0;
     host_ranks = 0;
 
@@ -640,24 +633,26 @@ double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCT
 	 * 
 	 */
 	
-	for(i=0;i<num_messages;i++)
-	{
-		if(length <= messages_length[i]) break;
-	}
-	
     double otv;
     int dims[3];
 
     dims[1]=from;
     dims[2]=to;
 
-	if(i==num_messages)
+   for (i=test_parameters.begin_message_length;
+        i<=test_parameters.end_message_length;
+        i+=test_parameters.step_length)
+    {
+        if(length <= i) break;
+    }
+
+	if(i>=test_parameters.end_message_length)
 	{
-        dims[0]=messages_length[i-1];
+        dims[0]=test_parameters.end_message_length;
 		nc_get_var1_double(netcdf_file_me, netcdf_var_me, const size_t index[], &otv);
         return otv;
 	}
-	dims[0]=messages_length[i];
+	dims[0]=i;
     nc_get_var1_double(netcdf_file_me, netcdf_var_me, const size_t index[], &otv);
     return otv;
 	//return 0.0;//links[i].element(from,to);
