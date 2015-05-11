@@ -604,8 +604,16 @@ int main(int argc,char **argv)
 			px_mpi_comm_size,
 			(double)(time_end-time_beg)
 		);
-		
 		fclose(f);
+		
+		printf
+		(
+			"PARUS: Work time '%s' on the %d processors is %f\n",
+			argv[0],
+			px_mpi_comm_size,
+			(double)(time_end-time_beg)
+		);
+		
 	} /* End 0 proc code (end daemon execution) */
 	else
 	/*
