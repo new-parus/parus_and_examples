@@ -646,11 +646,11 @@ double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCT
 	if(i>=test_parameters.end_message_length)
 	{
         size_t dims[] = {j-1, from, to};
-		nc_get_var1_double(netcdf_file_me, netcdf_var_me, &dims, &otv);
+		nc_get_var1_double(netcdf_file_me, netcdf_var_me, dims, &otv);
         return otv;
 	}
 	size_t dims[] = {j-1, from, to};
-    nc_get_var1_double(netcdf_file_me, netcdf_var_me, &dims, &otv);
+    nc_get_var1_double(netcdf_file_me, netcdf_var_me, dims, &otv);
     return otv;
 	//return 0.0;//links[i].element(from,to);
 }
