@@ -649,11 +649,11 @@ double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCT
 	if(i>=test_parameters.end_message_length)
 	{
         dims[0]=test_parameters.end_message_length;
-		nc_get_var1_double(netcdf_file_me, netcdf_var_me, dims, &otv);
+		nc_get_var1_double(netcdf_file_me, netcdf_var_me, &dims, &otv);
         return otv;
 	}
 	dims[0]=i;
-    nc_get_var1_double(netcdf_file_me, netcdf_var_me, dims, &otv);
+    nc_get_var1_double(netcdf_file_me, netcdf_var_me, &dims, &otv);
     return otv;
 	//return 0.0;//links[i].element(from,to);
 }
