@@ -3,8 +3,7 @@
 
 using namespace std;
 
-ofstream node;
-ofstream edge;
+ofstream graph;
 int number_of_nodes;
 
 void printnode(int number, int from, int to)
@@ -15,100 +14,101 @@ void printnode(int number, int from, int to)
 		i=i*2;
 		layer+=1;
 	}
-	node<<"    <NODE_BEGIN>"<<endl;
-    node<<"        number "<<number<<endl;
-    node<<"        type 1"<<endl;
-    node<<"        weight 100"<<endl;
-    node<<"        layer "<<layer<<endl;
-    node<<"        num_input_edges 1"<<endl;
-    node<<"        edges ( "<<number<<" )"<<endl;
+	graph<<"    <NODE_BEGIN>"<<endl;
+    graph<<"        number "<<number<<endl;
+    graph<<"        type 1"<<endl;
+    graph<<"        weight 100"<<endl;
+    graph<<"        layer "<<layer<<endl;
+    graph<<"        num_input_edges 1"<<endl;
+    graph<<"        edges ( "<<number<<" )"<<endl;
     if (to==0)
     {
-    	node<<"        num_output_edges 0"<<endl;
-    	node<<"        edges (  )"<<endl;
+    	graph<<"        num_output_edges 0"<<endl;
+    	graph<<"        edges (  )"<<endl;
     }else{
-		node<<"        num_output_edges 2"<<endl;
-    	node<<"        edges ( "<<to<<" "<<to+1<<" )"<<endl;
+		graph<<"        num_output_edges 2"<<endl;
+    	graph<<"        edges ( "<<to<<" "<<to+1<<" )"<<endl;
     }
-    node<<"        head \"head\""<<endl;
-    node<<"        body \"node\""<<endl;
-    node<<"        tail \"\""<<endl;
-    node<<"    <NODE_END>"<<endl<<endl;
+    graph<<"        head \"head.grfcpp\""<<endl;
+    graph<<"        body \"body.grfcpp\""<<endl;
+    graph<<"        tail \"tail.grfcpp\""<<endl;
+    graph<<"    <NODE_END>"<<endl<<endl;
 }
 
 void printedge(int number, int from, int to)
 {
-    edge<<"    <EDGE_BEGIN>"<<endl;
-    edge<<"       number "<<number<<endl;
-    edge<<"       weight 100"<<endl;
-    edge<<"       type   GRAPH_NONE"<<endl;
-    edge<<"       num_var 8"<<endl;
-    edge<<"       num_send_nodes 1"<<endl;
-    edge<<"       send_nodes ( "<<from<<" )"<<endl;
-    edge<<"       num_recv_nodes 2"<<endl;
-    edge<<"       recv_nodes ( "<<to<<" )"<<endl;
-    edge<<"            <SEND_BEGIN>"<<endl;
-    edge<<"                <CHUNK_BEGIN>"<<endl;
-    edge<<"                   name \"row\""<<endl;
-    edge<<"                   type GRAPH_LONG"<<endl;
-    edge<<"                   left_offset \"0\""<<endl;
-    edge<<"                   right_offset \""<<5*sizeof(long)<<"+F_LEN\""<<endl;
-    edge<<"                <CHUNK_END>"<<endl;
-    edge<<"            <SEND_END>"<<endl;
-    edge<<"            <RECIEVE_BEGIN>"<<endl;
-    edge<<"                <CHUNK_BEGIN>"<<endl;
-    edge<<"                   name \"row\""<<endl;
-    edge<<"                   type GRAPH_LONG"<<endl;
-    edge<<"                   left_offset \"0\""<<endl;
-    edge<<"                   right_offset \""<<5*sizeof(long)<<"\""<<endl;
-    edge<<"                <CHUNK_END>"<<endl;
-    edge<<"            <RECIEVE_END>"<<endl;
-    edge<<"     <EDGE_END>"<<endl<<endl;
+    graph<<"    <EDGE_BEGIN>"<<endl;
+    graph<<"       number "<<number<<endl;
+    graph<<"       weight 100"<<endl;
+    graph<<"       type   GRAPH_NONE"<<endl;
+    graph<<"       num_var 1"<<endl;
+    graph<<"       num_send_nodes 1"<<endl;
+    graph<<"       send_nodes ( "<<from<<" )"<<endl;
+    graph<<"       num_recv_nodes 2"<<endl;
+    graph<<"       recv_nodes ( "<<to<<" )"<<endl;
+    graph<<"            <SEND_BEGIN>"<<endl;
+    graph<<"                <CHUNK_BEGIN>"<<endl;
+    graph<<"                   name \"row\""<<endl;
+    graph<<"                   type GRAPH_DOUBLE"<<endl;
+    graph<<"                   left_offset \"0\""<<endl;
+    graph<<"                   right_offset \""<<500*sizeof(double)<<"+F_LEN\""<<endl;
+    graph<<"                <CHUNK_END>"<<endl;
+    graph<<"            <SEND_END>"<<endl;
+    graph<<"            <RECIEVE_BEGIN>"<<endl;
+    graph<<"                <CHUNK_BEGIN>"<<endl;
+    graph<<"                   name \"row\""<<endl;
+    graph<<"                   type GRAPH_DOUBLE"<<endl;
+    graph<<"                   left_offset \"0\""<<endl;
+    graph<<"                   right_offset \""<<500*sizeof(double)<<"\""<<endl;
+    graph<<"                <CHUNK_END>"<<endl;
+    graph<<"            <RECIEVE_END>"<<endl;
+    graph<<"     <EDGE_END>"<<endl<<endl;
 }
-//не забыть возврат из функции.
-void printBeginNode()
-{
-    node<<"<NODE_BEGIN>"<<endl;
-    node<<"    number "<<0<<endl;
-    node<<"    type 0"<<endl;
-    node<<"    weight 100"<<endl;
-    node<<"    layer 2"<<endl;
-    node<<"    num_input_edges 0"<<endl;
-    node<<"    edges (  )"<<endl;
-    node<<"    num_output_edges 1"<<endl;
-    node<<"    edges ( 1 )"<<endl;
-    node<<"    head \"\""<<endl;
-    node<<"    body \"BigNode\""<<endl;
-    node<<"    tail \"\""<<endl;
-    node<<"<NODE_END>"<<endl<<endl;
-}
+
 
 int main()
 {
-	node.open("node.grf");
-	edge.open("edge.grf");
+    graph.open("graph.grf");
+    number_of_nodes=512;
 
-	number_of_nodes=9;
-    printBeginNode();
+    graph<<"<GRAPH_BEGIN>"<<endl;
+    graph<<"    header \"\""<<endl;
+    graph<<"    root \"\""<<endl;
+    graph<<"    tail \"\""<<endl;
+    graph<<"    num_nodes "<<number_of_nodes<<endl<<endl;
+
+
+    graph<<"<NODES_BEGIN>"<<endl;
+    
     int j=2;
     for (int i=1; i<number_of_nodes+1; i++)
     {
         int from = (int)(i/2) - (i%2);
-    	int to = i*2;
-    	if (to+1 <= number_of_nodes)
-    	{ 
-    		printedge(j,i,to);
-    		j++;
-    		printedge(j,i,to+1);
-        	j++;
-        }else{
-        	if (to == number_of_nodes)
-        	{
-        		printedge(j,i,to);
-        		j++;
-        	}else{to=0;}
-        }
+        int to = i*2;
         printnode(i,from,to);
     }
+
+    graph<<"<NODES_END>"<<endl<<endl;
+
+    graph<<"<EDGES_BEGIN>"<<endl;
+    for (int i=1; i<number_of_nodes+1; i++)
+    {
+        int from = (int)(i/2) - (i%2);
+        int to = i*2;
+        if (to+1 <= number_of_nodes)
+        { 
+            printedge(j,i,to);
+            j++;
+            printedge(j,i,to+1);
+            j++;
+        }else{
+            if (to == number_of_nodes)
+            {
+                printedge(j,i,to);
+                j++;
+            }else{to=0;}
+        }
+    }
+    graph<<"<EDGES_END>"<<endl;
     return 0;
 }
