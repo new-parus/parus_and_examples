@@ -623,7 +623,7 @@ int Network_speed::close_and_free()
 
 double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCTION
 {
-	int i;
+	int i, j=0;
 	
 	/*
 	 * There is not line interpolation scheme.
@@ -634,25 +634,22 @@ double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCT
 	 */
 	
     double otv;
-    int dims[3];
 
-    dims[1]=from;
-    dims[2]=to;
-
-   for (i=test_parameters.begin_message_length;
+    for (i=test_parameters.begin_message_length;
         i<=test_parameters.end_message_length;
         i+=test_parameters.step_length)
     {
         if(length <= i) break;
+        j++;
     }
 
 	if(i>=test_parameters.end_message_length)
 	{
-        dims[0]=test_parameters.end_message_length;
+        size_t dims[] = {j-1, from, to};
 		nc_get_var1_double(netcdf_file_me, netcdf_var_me, &dims, &otv);
         return otv;
 	}
-	dims[0]=i;
+	size_t dims[] = {j-1, from, to};
     nc_get_var1_double(netcdf_file_me, netcdf_var_me, &dims, &otv);
     return otv;
 	//return 0.0;//links[i].element(from,to);
