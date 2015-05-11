@@ -17,14 +17,15 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * 
  */
-
-#include "network_speed.h"
-#include "str_operation.h"
-
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <mpi.h>
+
+#include <netcdf.h>
+
+#include "network_speed.h"
+#include "str_operation.h"
 
 #include "data_write_operations.h"
 
@@ -645,7 +646,7 @@ double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCT
 	}
 	
     double otv;
-    int dim[3];
+    int dims[3];
 
     dims[1]=from;
     dims[2]=to;
@@ -659,7 +660,7 @@ double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCT
 	dims[0]=messages_length[i];
     nc_get_var1_double(netcdf_file_me, netcdf_var_me, const size_t index[], &otv);
     return otv;
-	return 0.0;//links[i].element(from,to);
+	//return 0.0;//links[i].element(from,to);
 }
 /****************************************************************************/
 
