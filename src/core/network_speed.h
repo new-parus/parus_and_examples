@@ -93,6 +93,16 @@ protected:
     /* Test parameters */
     char test_type_name[100]; // Truncated if too long
     char data_type[256]; // Truncated if too long
+    
+    int begin_message_length;
+    int end_message_length;
+    int step_length;
+    int noise_message_length;
+    int noise_message_num;
+    int noise_processors;
+    int num_repeats;
+    char** host_names;
+
     char host_name[256];
     int* host_ranks; // Ranks for each processor
 
