@@ -55,7 +55,7 @@ Network_speed::Network_speed()
     host_ranks = 0;
 
     test_parameters.num_procs            =  0; /* Special for program break on any error */
-    test_parameters.test_type            =  ONE_TO_ONE_TEST_TYPE;
+    test_parameters.test_type            =  ALL_TO_ALL_TEST_TYPE;
     test_parameters.begin_message_length =  MESSAGE_BEGIN_LENGTH;
     test_parameters.end_message_length   =  MESSAGE_END_LENGTH;
     test_parameters.step_length          =  MESSAGE_STEP;
@@ -152,8 +152,8 @@ int Network_speed::fread(char *file_name)
 
     // /* Test parameters */
      /*
-#define GETWORD flag = get_word( f, str , READ_STR_LENGTH ); if ( flag ) return -1;
-#define FORMATCHECK(x) if ( strcmp( str, x ) ) { printf( "Bad format file %s\n", file_name ); return -1; }
+    #define GETWORD flag = get_word( f, str , READ_STR_LENGTH ); if ( flag ) return -1;
+    #define FORMATCHECK(x) if ( strcmp( str, x ) ) { printf( "Bad format file %s\n", file_name ); return -1; }
 
 
     GETWORD FORMATCHECK( "test" )
@@ -216,7 +216,7 @@ int Network_speed::fread(char *file_name)
     flag = read_string( f, str );
     if ( flag == -1 ) return -1;
     */
-/*
+    /*
     GETWORD FORMATCHECK( "hosts:" )
     
     // Update state
@@ -246,8 +246,8 @@ int Network_speed::fread(char *file_name)
 	*/
     /*}
 
-#undef GETWORD
-#undef FORMATCHECK
+    #undef GETWORD
+    #undef FORMATCHECK
 
     int tmp_num_messages = 0;
     for( int i = begin_message_length; i < end_message_length; tmp_num_messages++ )
@@ -591,9 +591,24 @@ int Network_speed::make_file(char *file_name)
      * Times array should be moved from return value to the input argument
      * for any network_test.
      */
-    
+    if(comm_rank==0)
+    {
+        free(mtr_av.body);
+        free(mtr_me.body);
+        free(mtr_di.body);
+        free(mtr_mi.body);
+
+        printf("\nTest is done\n");
+    }
+
     free(times);
 }
+
+/*int Network_speed::read_file(char *file_name)
+{
+    //create_netcdf_header
+}*/
+
 //***************************************************
 int Network_speed::close_and_free()
 {
@@ -608,11 +623,6 @@ int Network_speed::close_and_free()
         free(host_names[i]);
     }
     free(host_names);
-
-    free(mtr_av.body);
-    free(mtr_me.body);
-    free(mtr_di.body);
-    free(mtr_mi.body);
 
     return 0;
 }
@@ -631,14 +641,24 @@ double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCT
 	
 	for(i=0;i<num_messages;i++)
 	{
-		//if(length <= messages_length[i]) break;
+		if(length <= messages_length[i]) break;
 	}
 	
+    double otv;
+    int dim[3];
+
+    dims[1]=from;
+    dims[2]=to;
+
 	if(i==num_messages)
 	{
-		//return links[num_messages-1].element(from,to);
+        dims[0]=messages_length[i-1];
+		nc_get_var1_double(netcdf_file_me, netcdf_var_me, const size_t index[], &otv);
+        return otv;
 	}
-	
+	dims[0]=messages_length[i];
+    nc_get_var1_double(netcdf_file_me, netcdf_var_me, const size_t index[], &otv);
+    return otv;
 	return 0.0;//links[i].element(from,to);
 }
 /****************************************************************************/

@@ -33,10 +33,10 @@
 #include "../../parus_config.h"
 
 
-#define MESSAGE_BEGIN_LENGTH 0
-#define MESSAGE_END_LENGTH 10000
-#define NUM_REPEATS 100
-#define MESSAGE_STEP 100
+#define MESSAGE_BEGIN_LENGTH 100
+#define MESSAGE_END_LENGTH 3100
+#define NUM_REPEATS 1
+#define MESSAGE_STEP 500
 #define NOISE_MESSAGE_LENGTH 0
 #define NOISE_MESSAGE_NUM 1
 #define NUM_NOISE_PROCS 0
@@ -161,6 +161,7 @@ public:
     ~Network_speed();
     int fread(char *file_name);
     int make_file(char *file_name);
+    //int read_file(char *file_name);
     
     INLINE bool is_no_file( )
     {
