@@ -2,7 +2,7 @@
     header ""
     root ""
     tail ""
-    num_nodes 512
+    num_nodes 513
 
 <NODES_BEGIN>
     <NODE_BEGIN>
@@ -7173,7 +7173,23 @@
         tail "tail.grfcpp"
     <NODE_END>
 
+    <NODE_BEGIN>
+        number 513
+        type 1
+        weight 100
+        layer 10
+        num_input_edges 1
+        edges ( 513 )
+        num_output_edges 2
+        edges ( 1026 1027 )
+        head "head.grfcpp"
+        body "body.grfcpp"
+        tail "tail.grfcpp"
+    <NODE_END>
+
 <NODES_END>
+
+    num_edges 514
 
 <EDGES_BEGIN>
     <EDGE_BEGIN>
@@ -20955,6 +20971,33 @@
        send_nodes ( 256 )
        num_recv_nodes 2
        recv_nodes ( 512 )
+            <SEND_BEGIN>
+                <CHUNK_BEGIN>
+                   name "row"
+                   type GRAPH_DOUBLE
+                   left_offset "0"
+                   right_offset "4000+F_LEN"
+                <CHUNK_END>
+            <SEND_END>
+            <RECIEVE_BEGIN>
+                <CHUNK_BEGIN>
+                   name "row"
+                   type GRAPH_DOUBLE
+                   left_offset "0"
+                   right_offset "4000"
+                <CHUNK_END>
+            <RECIEVE_END>
+     <EDGE_END>
+
+    <EDGE_BEGIN>
+       number 513
+       weight 100
+       type   GRAPH_NONE
+       num_var 1
+       num_send_nodes 1
+       send_nodes ( 256 )
+       num_recv_nodes 2
+       recv_nodes ( 513 )
             <SEND_BEGIN>
                 <CHUNK_BEGIN>
                    name "row"

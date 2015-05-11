@@ -69,7 +69,7 @@ void printedge(int number, int from, int to)
 int main()
 {
     graph.open("graph.grf");
-    number_of_nodes=512;
+    number_of_nodes=513;
 
     graph<<"<GRAPH_BEGIN>"<<endl;
     graph<<"    header \"\""<<endl;
@@ -90,6 +90,24 @@ int main()
 
     graph<<"<NODES_END>"<<endl<<endl;
 
+    for (int i=1; i<number_of_nodes+1; i++)
+    {
+        int from = (int)(i/2) - (i%2);
+        int to = i*2;
+        if (to+1 <= number_of_nodes)
+        { 
+            j++;
+            j++;
+        }else{
+            if (to == number_of_nodes)
+            {
+                j++;
+            }else{to=0;}
+        }
+    }
+
+    graph<<"    num_edges "<< j <<endl<<endl;
+    j=2;
     graph<<"<EDGES_BEGIN>"<<endl;
     for (int i=1; i<number_of_nodes+1; i++)
     {
