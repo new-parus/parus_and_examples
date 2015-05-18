@@ -585,7 +585,7 @@ int main(int argc,char **argv)
 		} /* End for */
 		
 		time_end=px_my_cpu_time();
-		
+		//!!
 		f=fopen("times.txt","a");
 		if(f==NULL)
 		{

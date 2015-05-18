@@ -67,7 +67,10 @@ int px_daemon
 	char *regime_name
 )
 {
-	
+	px_my_time_type time_beg,time_end;
+	FILE *f=NULL;
+
+
 	int flag;
 	char str[100];
 	int i,j;
@@ -189,7 +192,9 @@ int px_daemon
 		}
 	}
 
- 
+ 	
+ 	time_beg=px_my_cpu_time();
+
 	flag=mtr.make_file(mtr_name);
 	/*if(flag)
 	{
@@ -212,6 +217,35 @@ int px_daemon
 		}
 	}*/
 
+	time_end=px_my_cpu_time();
+		
+	f=fopen("times.txt","a");
+	if(f==NULL)
+	{
+		fprintf(stderr,"Can't open file \"times.txt\".\n");
+		px_log_printf(0,"Can't open file \"times.txt\".\n");
+		px_log_close();
+		MPI_Finalize();
+		return -1;
+	}
+	
+	fprintf
+	(
+		f,
+		"Network_test time '%s' on the %d processors is %f\n",
+		argv[0],
+		px_mpi_comm_size,
+		(double)(time_end-time_beg)
+	);
+	fclose(f);
+	
+	printf
+	(
+		"PARUS: Network_test time '%s' on the %d processors is %f\n",
+		argv[0],
+		px_mpi_comm_size,
+		(double)(time_end-time_beg)
+	);
 
 	flag=v.fread(v_name);
 	if(flag==-1)
