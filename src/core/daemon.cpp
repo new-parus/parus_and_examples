@@ -232,8 +232,7 @@ int px_daemon
 	fprintf
 	(
 		f,
-		"Network_test time '%s' on the %d processors is %f\n",
-		argv[0],
+		"Network_test time on the %d processors is %f\n",
 		px_mpi_comm_size,
 		(double)(time_end-time_beg)
 	);
@@ -241,8 +240,7 @@ int px_daemon
 	
 	printf
 	(
-		"PARUS: Network_test time '%s' on the %d processors is %f\n",
-		argv[0],
+		"PARUS: Network_test time on the %d processors is %f\n",
 		px_mpi_comm_size,
 		(double)(time_end-time_beg)
 	);
