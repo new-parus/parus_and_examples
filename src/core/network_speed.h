@@ -155,13 +155,13 @@ protected:
      *
      * This is not C++ class but very like.
      */
-    Easy_matrix mtr_av;
-    Easy_matrix mtr_me;
-    Easy_matrix mtr_di;
-    Easy_matrix mtr_mi;
+    Easy_matrix *mtr_av;
+    Easy_matrix *mtr_me;
+    Easy_matrix *mtr_di;
+    Easy_matrix *mtr_mi;
 
     std::map <int, Easy_matrix*> matrixs;
-    const int mass_size_of_msg[6]={10,100,1000,3000,6000,10000}; 
+    int mass_size_of_msg[6]={10,100,1000,3000,6000,10000}; 
 
 public:
     Network_speed();
