@@ -495,16 +495,16 @@ int Network_speed::make_file(char *file_name)
     /*
      * Circle by length of messages
      */
-    for
-        (
+    for (int i=0; i<6;i++)//идём по mass_size_of_msg
+        /*(
          tmp_mes_size=test_parameters.begin_message_length;
          tmp_mes_size<test_parameters.end_message_length;
          step_num++,tmp_mes_size+=test_parameters.step_length
-         )
+        )*/
     {
         if(test_parameters.test_type==ALL_TO_ALL_TEST_TYPE)
         {
-            all_to_all(times,tmp_mes_size,test_parameters.num_repeats);
+            all_to_all(times,mass_size_of_msg[i],2); //repeat test for accuracy
         }
 
         MPI_Barrier(MPI_COMM_WORLD);
@@ -533,36 +533,46 @@ int Network_speed::make_file(char *file_name)
             }
 
 
-            if(netcdf_write_matrix(netcdf_file_av,netcdf_var_av,step_num,mtr_av.sizex,mtr_av.sizey,mtr_av.body))
+            if(netcdf_write_matrix(netcdf_file_av,netcdf_var_av,i,mtr_av.sizex,mtr_av.sizey,mtr_av.body))
             {
                 printf("Can't write average matrix to file.\n");
                 MPI_Abort(MPI_COMM_WORLD,-1);
                 return 1;
             }
 
-            if(netcdf_write_matrix(netcdf_file_me,netcdf_var_me,step_num,mtr_me.sizex,mtr_me.sizey,mtr_me.body))
+            if(netcdf_write_matrix(netcdf_file_me,netcdf_var_me,i,mtr_me.sizex,mtr_me.sizey,mtr_me.body))
             {
                 printf("Can't write median matrix to file.\n");
                 MPI_Abort(MPI_COMM_WORLD,-1);
                 return 1;
             }
 
-            if(netcdf_write_matrix(netcdf_file_di,netcdf_var_di,step_num,mtr_di.sizex,mtr_di.sizey,mtr_di.body))
+            if(netcdf_write_matrix(netcdf_file_di,netcdf_var_di,i,mtr_di.sizex,mtr_di.sizey,mtr_di.body))
             {
                 printf("Can't write deviation matrix to file.\n");
                 MPI_Abort(MPI_COMM_WORLD,-1);
                 return 1;
             }
 
-            if(netcdf_write_matrix(netcdf_file_mi,netcdf_var_mi,step_num,mtr_mi.sizex,mtr_mi.sizey,mtr_mi.body))
+            if(netcdf_write_matrix(netcdf_file_mi,netcdf_var_mi,i,mtr_mi.sizex,mtr_mi.sizey,mtr_mi.body))
             {
                 printf("Can't write  matrix with minimal values to file.\n");
                 MPI_Abort(MPI_COMM_WORLD,-1);
                 return 1;
             }
 
+            matrixs.insert ( std::pair<int,*Easy_matrix>(mass_size_of_msg[i],&mtr_me) );
+            mtr_me = NULL;
 
-            printf("message length %d finished\r",tmp_mes_size);
+            flag = easy_mtr_create(&mtr_me,comm_size,comm_size);
+            if( flag==-1 )
+            {
+                printf("Can not to create median matrix to story the test results\n");
+                MPI_Abort(MPI_COMM_WORLD,-1);
+                return -1;
+            }
+
+            printf("message length %d finished\r",mass_size_of_msg[i]);
             fflush(stdout);
 
         } /* end comm rank 0 */
@@ -588,7 +598,7 @@ int Network_speed::make_file(char *file_name)
     if(comm_rank==0)
     {
         free(mtr_av.body);
-        free(mtr_me.body);
+        //free(mtr_me.body);
         free(mtr_di.body);
         free(mtr_mi.body);
 
@@ -617,6 +627,10 @@ int Network_speed::close_and_free()
         free(host_names[i]);
     }
     free(host_names);
+    for(int i=0; i<6; i++)
+    {
+        free(matrixs[mass_size_of_msg[i]]);
+    }
 
     return 0;
 }
@@ -635,15 +649,17 @@ double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCT
 	
     double otv;
 
-    for (i=test_parameters.begin_message_length;
-        i<=test_parameters.end_message_length;
-        i+=test_parameters.step_length)
+    for (i=0; i<6;i++)
     {
-        if(length <= i) break;
-        j++;
+        if(length <= mass_size_of_msg[i])
+        {
+            return MATRIX_GET_ELEMENT(matrixs[mass_size_of_msg[i]],from,to)
+        }
     }
-
-	if(i>=test_parameters.end_message_length)
+    return MATRIX_GET_ELEMENT(matrixs[mass_size_of_msg[6]],from,to)
+	
+    //uncomment it if you want to read info from nc-files
+    /*if(i>=test_parameters.end_message_length)
 	{
         size_t dims[] = {j-1, from, to};
 		nc_get_var1_double(netcdf_file_me, netcdf_var_me, dims, &otv);
@@ -651,7 +667,7 @@ double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCT
 	}
 	size_t dims[] = {j-1, from, to};
     nc_get_var1_double(netcdf_file_me, netcdf_var_me, dims, &otv);
-    return otv;
+    return otv;*/
 	//return 0.0;//links[i].element(from,to);
 }
 /****************************************************************************/

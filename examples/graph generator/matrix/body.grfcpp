@@ -1,0 +1,9 @@
+int i=0, j=0;
+for (j=0;j<1000;j++)
+{
+	for (i=0;i<1000;i++)
+	{
+		row[i]= i+ 0.5;
+		row[i]= row[i]*row[i]/100;
+	}
+}
