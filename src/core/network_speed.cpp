@@ -608,11 +608,14 @@ int Network_speed::make_file(char *file_name)
      */
     if(comm_rank==0)
     {
-        free(mtr_av.body);
-        //free(mtr_me.body);
-        free(mtr_di.body);
-        free(mtr_mi.body);
-
+        free(mtr_av->body);
+        free(mtr_me->body);
+        free(mtr_di->body);
+        free(mtr_mi->body);
+        free(mtr_av);
+        free(mtr_me);
+        free(mtr_di);
+        free(mtr_mi);
         printf("\nTest is done\n");
     }
 
