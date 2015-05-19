@@ -59,6 +59,13 @@ Network_speed::Network_speed()
     test_parameters.num_noise_procs      =  NUM_NOISE_PROCS;
     test_parameters.file_name_prefix     =  parus_default_file_name_prefix;
 
+    mass_size_of_msg[0]=10;
+    mass_size_of_msg[1]=100;
+    mass_size_of_msg[2]=1000;
+    mass_size_of_msg[3]=3000;
+    mass_size_of_msg[4]=6000;
+    mass_size_of_msg[5]=10000;
+    
     //messages_length=NULL;
     //links=NULL;
     return;
