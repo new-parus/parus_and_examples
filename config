@@ -1,7 +1,7 @@
 #
 # Alexey Salnikov
 #
-PARUS_VERSION=1.3.0
+PARUS_VERSION=1.3.1
 INSTALL_DIR=$(HOME)/_scratch/parus-$(PARUS_VERSION)
 MPI_HOME=
 MPI_cc=mpicc
