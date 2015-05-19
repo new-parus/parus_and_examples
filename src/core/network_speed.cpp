@@ -407,7 +407,7 @@ int Network_speed::make_file(char *file_name)
             return -1;
         }
 
-        if(create_netcdf_header(AVERAGE_NETWORK_TEST_DATATYPE,&test_parameters,&netcdf_file_av,&netcdf_var_av))
+        /*if(create_netcdf_header(AVERAGE_NETWORK_TEST_DATATYPE,&test_parameters,&netcdf_file_av,&netcdf_var_av))
         {
             printf("Can not to create file with name \"%s_average.nc\"\n",test_parameters.file_name_prefix);
             MPI_Abort(MPI_COMM_WORLD,-1);
@@ -433,7 +433,7 @@ int Network_speed::make_file(char *file_name)
             printf("Can not to create file with name \"%s_min.nc\"\n",test_parameters.file_name_prefix);
             MPI_Abort(MPI_COMM_WORLD,-1);
             return -1;
-        }
+        }*/
 
         if(create_test_hosts_file(&test_parameters,host_names))     
         {
@@ -533,7 +533,7 @@ int Network_speed::make_file(char *file_name)
             }
 
 
-            if(netcdf_write_matrix(netcdf_file_av,netcdf_var_av,i,mtr_av.sizex,mtr_av.sizey,mtr_av.body))
+            /*if(netcdf_write_matrix(netcdf_file_av,netcdf_var_av,i,mtr_av.sizex,mtr_av.sizey,mtr_av.body))
             {
                 printf("Can't write average matrix to file.\n");
                 MPI_Abort(MPI_COMM_WORLD,-1);
@@ -559,7 +559,7 @@ int Network_speed::make_file(char *file_name)
                 printf("Can't write  matrix with minimal values to file.\n");
                 MPI_Abort(MPI_COMM_WORLD,-1);
                 return 1;
-            }
+            }*/
 
             matrixs.insert ( std::pair<int,*Easy_matrix>(mass_size_of_msg[i],&mtr_me) );
             mtr_me = NULL;
