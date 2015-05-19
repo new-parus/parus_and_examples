@@ -24,6 +24,7 @@
 #include "linealge.h"
 #include "my_time.h"
 #include <string.h>
+#include <map>
 
 #include "string_id_converters.h"
 #include "tests_common.h"
@@ -77,7 +78,7 @@ protected:
     enum info_state
     {
         info_state_nothing,
-        info_state_no_file, // failed to open
+        info_state_no_file, //failed to open
         info_state_processors,
         info_state_test_parameters,
         info_state_partial_matrices,
@@ -158,6 +159,10 @@ protected:
     Easy_matrix mtr_me;
     Easy_matrix mtr_di;
     Easy_matrix mtr_mi;
+
+    map <int, *Easy_matrix> matrixs;
+    const int mass_size_of_msg[6]={10,100,1000,3000,6000,10000}; 
+
 public:
     Network_speed();
     ~Network_speed();
