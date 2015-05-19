@@ -385,6 +385,7 @@ int Network_speed::make_file(char *file_name)
          * Matrices initialization
          *
          */
+        mtr_av = (Easy_matrix*)malloc(sizeof(Easy_matrix));
         flag = easy_mtr_create(mtr_av,comm_size,comm_size);
         if( flag==-1 )
         {
@@ -392,6 +393,7 @@ int Network_speed::make_file(char *file_name)
             MPI_Abort(MPI_COMM_WORLD,-1);
             return -1;
         }
+        mtr_me = (Easy_matrix*)malloc(sizeof(Easy_matrix));
         flag = easy_mtr_create(mtr_me,comm_size,comm_size);
         if( flag==-1 )
         {
@@ -399,6 +401,7 @@ int Network_speed::make_file(char *file_name)
             MPI_Abort(MPI_COMM_WORLD,-1);
             return -1;
         }
+        mtr_di = (Easy_matrix*)malloc(sizeof(Easy_matrix));
         flag = easy_mtr_create(mtr_di,comm_size,comm_size);
         if( flag==-1 )
         {
@@ -406,6 +409,7 @@ int Network_speed::make_file(char *file_name)
             MPI_Abort(MPI_COMM_WORLD,-1);
             return -1;
         }
+        mtr_mi = (Easy_matrix*)malloc(sizeof(Easy_matrix));
         flag = easy_mtr_create(mtr_mi,comm_size,comm_size);
         if( flag==-1 )
         {
@@ -520,10 +524,10 @@ int Network_speed::make_file(char *file_name)
         {
             for(int j=0; j<comm_size; j++)
             {
-                MATRIX_FILL_ELEMENT(mtr_av*,0,j,times[j].average);
-                MATRIX_FILL_ELEMENT(mtr_me*,0,j,times[j].median);
-                MATRIX_FILL_ELEMENT(mtr_di*,0,j,times[j].deviation);
-                MATRIX_FILL_ELEMENT(mtr_mi*,0,j,times[j].min);
+                MATRIX_FILL_ELEMENT((mtr_av*),0,j,times[j].average);
+                MATRIX_FILL_ELEMENT((mtr_me*),0,j,times[j].median);
+                MATRIX_FILL_ELEMENT((mtr_di*),0,j,times[j].deviation);
+                MATRIX_FILL_ELEMENT((mtr_mi*),0,j,times[j].min);
             }
             for(int i=1; i<comm_size; i++)
             {
@@ -531,10 +535,10 @@ int Network_speed::make_file(char *file_name)
                 MPI_Recv(times,comm_size,MPI_My_time_struct,i,100,MPI_COMM_WORLD,&status);
                 for(int j=0; j<comm_size; j++)
                 {
-                    MATRIX_FILL_ELEMENT(mtr_av*,i,j,times[j].average);
-                    MATRIX_FILL_ELEMENT(mtr_me*,i,j,times[j].median);
-                    MATRIX_FILL_ELEMENT(mtr_di*,i,j,times[j].deviation);
-                    MATRIX_FILL_ELEMENT(mtr_mi*,i,j,times[j].min);
+                    MATRIX_FILL_ELEMENT((mtr_av*),i,j,times[j].average);
+                    MATRIX_FILL_ELEMENT((mtr_me*),i,j,times[j].median);
+                    MATRIX_FILL_ELEMENT((mtr_di*),i,j,times[j].deviation);
+                    MATRIX_FILL_ELEMENT((mtr_mi*),i,j,times[j].min);
 
                 }
             }
