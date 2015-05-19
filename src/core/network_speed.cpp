@@ -670,7 +670,7 @@ double Network_speed::translate_time(int from,int to,int length)//NEED NEW FUNCT
             return MATRIX_GET_ELEMENT((*matrixs[mass_size_of_msg[i]]),from,to);
         }
     }
-    return MATRIX_GET_ELEMENT((*matrixs[mass_size_of_msg[6]]),from,to);
+    return MATRIX_GET_ELEMENT((*matrixs[mass_size_of_msg[5]]),from,to);
 	
     //uncomment it if you want to read info from nc-files
     /*if(i>=test_parameters.end_message_length)
