@@ -161,7 +161,7 @@ protected:
     Easy_matrix *mtr_mi;
 
     std::map <int, Easy_matrix*> matrixs;
-    int mass_size_of_msg[6]={10,100,1000,3000,6000,10000}; 
+    int mass_size_of_msg[6];//={10,100,1000,3000,6000,10000}; 
 
 public:
     Network_speed();
