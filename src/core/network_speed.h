@@ -160,7 +160,7 @@ protected:
     Easy_matrix mtr_di;
     Easy_matrix mtr_mi;
 
-    std::map <int, *Easy_matrix> matrixs;
+    std::map <int, Easy_matrix*> matrixs;
     const int mass_size_of_msg[6]={10,100,1000,3000,6000,10000}; 
 
 public:
