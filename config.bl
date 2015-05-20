@@ -1,0 +1,36 @@
+#
+# Alexey Salnikov
+#
+PARUS_VERSION=1.3.1
+INSTALL_DIR=$(HOME)/_scratch/parus-$(PARUS_VERSION)
+MPI_HOME=
+#
+#
+# In mpich-1.2.6 mpiCC is called mpicxx
+#
+#
+MPI_cc=mpixlc_r
+MPI_CC=mpixlcxx_r
+MPI_CLINKER=$(MPI_CC)
+MPI_CCLINKER=$(MPI_CC)
+MPI_LIB_PATH=-L $(MPI_HOME)/lib -L /gpfs/data/salnikov/bgsys/netcdf/lib -L /gpfs/data/salnikov/hdf5/lib/ -L /gpfs/data/salnikov/zlib/lib
+MPI_LIBS= -lhdf5_hl -lhdf5 -lz
+MPI_cc_INCLUDE=  -I $(MPI_HOME)/include -I /bgsys/drivers/ppcfloor/arch/include -I /gpfs/data/salnikov/bgsys/netcdf/include
+MPI_CC_INCLUDE=$(MPI_cc_INCLUDE)
+MPI_cc_FLAGS= -g -O 
+MPI_CC_FLAGS= -g -O
+MPI_CLINKER_FLAGS= -L /gpfs/data/salnikov/gpfs/bgsys/netcdf/lib
+MPI_CCLINKER_FLAGS=
+NETCDF_INCLUDE= -I /gpfs/data/salnikov/bgsys/netcdf/include -I /bgsys/drivers/ppcfloor/arch/include
+CC=xlc_r
+CCC=xlc++_r
+CC_FLAGS= -g -O
+CCC_FLAGS= -g -O
+CC_INCLUDE= -I $(INSTALL_DIR)
+CCC_INCLUDE= $(CC_INCLUDE)
+CLINKER=$(CC)
+CCLINKER=$(CCC)
+CLINKER_FLAGS=
+CCLINKER_FLAGS= -L /gpfs/data/salnikov/bgsys/netcdf/lib 
+LIB_PATH=
+LIBS=
